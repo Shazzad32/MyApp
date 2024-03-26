@@ -1,0 +1,23 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 412px) {
+  .main_top {
+    width: 412px;
+    height: 600px;
+    background-color: tomato;
+  }
+  .top_log {
+    height: 400px;
+    width: 400px;
+    background-color: red;
+  }
+  .login {
+    width: 150%;
+    height: 390px;
+    background-color: aqua;
+  }
+}
