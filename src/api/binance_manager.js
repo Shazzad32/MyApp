@@ -1,5 +1,7 @@
-const URL = "localhost";
-const URL_2 = "testurl";
+// const URL = "http://jaj.forbit.tech:5001/sohel/coins/";
+// const URL = "http://sumon.forbit.tech:5001/sohel/coins/";
+const URL = "https://jaj.forbit.tech/api/coins/";
+const URL_2 = "http://localhost:3004/in/inproducts";
 
 class BinanceManager {
   constructor(axios) {

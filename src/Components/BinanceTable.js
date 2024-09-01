@@ -1,8 +1,18 @@
 import { Switch, CircularProgress, Typography, Box } from "@mui/material";
 import { FiEdit } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const BinanceTable = ({ item, handleChange, handelEditModal }) => {
+  const [activeButton, setActiveButton] = useState(null);
+
+  // Handlers for button clicks
+  const handleButtonClick = (button) => {
+    setActiveButton(button);
+  };
+
+  const value = 10;
+
   return (
     <div
       style={{
@@ -476,6 +486,43 @@ const BinanceTable = ({ item, handleChange, handelEditModal }) => {
                   "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;",
               }}
             ></div>
+            <div
+              style={{
+                height: 65,
+                width: 60,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <button
+                style={{
+                  height: "45%",
+                  width: "97%",
+                  background: "gray",
+                  border: "none",
+                  borderRadius: 5,
+                }}
+                onClick={() => handleButtonClick("A")}
+                disabled={activeButton === "B"}
+              >
+                A
+              </button>
+              <button
+                style={{
+                  height: "45%",
+                  width: "97%",
+                  background: "gray",
+                  border: "none",
+                  borderRadius: 5,
+                }}
+                onClick={() => handleButtonClick("B")}
+                disabled={activeButton === "A"}
+              >
+                B
+              </button>
+            </div>
           </div>
         </div>
       </div>
