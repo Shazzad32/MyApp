@@ -1,6 +1,4 @@
-// const URL = "http://jaj.forbit.tech:5001/sohel/coins/";
-// const URL = "http://sumon.forbit.tech:5001/sohel/coins/";
-const URL = "https://jaj.forbit.tech/api/coins/";
+const URL = "url";
 const URL_2 = "http://localhost:3004/in/inproducts";
 
 class BinanceManager {
@@ -31,6 +29,26 @@ class BinanceManager {
       let url = URL + data._id;
       this.axios
         .put(url, data)
+        .then((data) => resolve(data.data))
+        .catch((err) => reject(err));
+    });
+  }
+
+  exitFromCoin(data) {
+    return new Promise((resolve, reject) => {
+      let url = URL + data._id + "/exit";
+      this.axios
+        .post(url, {})
+        .then((data) => resolve(data.data))
+        .catch((err) => reject(err));
+    });
+  }
+
+  enterIntoCoin(data) {
+    return new Promise((resolve, reject) => {
+      let url = URL + data._id + "/enter";
+      this.axios
+        .post(url, {})
         .then((data) => resolve(data.data))
         .catch((err) => reject(err));
     });

@@ -20,7 +20,6 @@ const TopSubDiv = (props) => {
             alignItems: "center",
             justifyContent: "center",
             fontSize: 14,
-            // color: "red",
           }}
         >
           {props.name}

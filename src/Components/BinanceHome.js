@@ -9,6 +9,8 @@ import AddCoin from "./AddCoin";
 import { motion } from "framer-motion";
 import "./main.css";
 import "./style/home.css";
+import StateModal from "./StateModal";
+import EnterModal from "./EnterModal";
 
 const BinanceHome = () => {
   const [state, setState] = useState({
@@ -16,6 +18,8 @@ const BinanceHome = () => {
     dataResults: [],
     searchItem: "",
     modalOpen: false,
+    stateOpen: false,
+    enterModalOpen: false,
     open: false,
     selectItem: null,
   });
@@ -73,6 +77,30 @@ const BinanceHome = () => {
       });
   };
 
+  const exitFromCoin = (item) => {
+    binanceManager
+      .exitFromCoin(item)
+      .then((updatedItem) => {
+        let arr = [...state.datas];
+        let oldItem = arr.filter((x) => x._id === item._id)[0];
+        arr[arr.indexOf(oldItem)] = updatedItem;
+        setState((old) => ({ ...old, datas: arr, stateOpen: false }));
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const enterIntoCoin = (item) => {
+    binanceManager
+      .enterIntoCoin(item)
+      .then((updatedItem) => {
+        let arr = [...state.datas];
+        let oldItem = arr.filter((x) => x._id === item._id)[0];
+        arr[arr.indexOf(oldItem)] = updatedItem;
+        setState((old) => ({ ...old, datas: arr, enterModalOpen: false }));
+      })
+      .catch((err) => console.log(err));
+  };
+
   const handelEditModal = (item) => {
     const old = { ...state };
     old.modalOpen = true;
@@ -83,6 +111,32 @@ const BinanceHome = () => {
   const handelModalClose = () => {
     const old = { ...state };
     old.modalOpen = false;
+    setState(old);
+  };
+
+  const handelStateModalOpen = (item) => {
+    const old = { ...state };
+    old.stateOpen = true;
+    old.selectItem = item;
+    setState(old);
+  };
+  const handelStateModalClose = () => {
+    const old = { ...state };
+    old.stateOpen = false;
+    setState(old);
+  };
+
+  const handelEnterModalOpen = (item) => {
+    const old = { ...state };
+    old.enterModalOpen = true;
+    old.selectItem = item;
+
+    setState(old);
+  };
+
+  const handelEnterModalClose = () => {
+    const old = { ...state };
+    old.enterModalOpen = false;
     setState(old);
   };
 
@@ -273,6 +327,8 @@ const BinanceHome = () => {
                   item={item}
                   handleChange={handleChange}
                   handelEditModal={handelEditModal}
+                  handelStateModalOpen={handelStateModalOpen}
+                  handelEnterModalOpen={handelEnterModalOpen}
                 />
               ))}
             </div>
@@ -324,6 +380,22 @@ const BinanceHome = () => {
           selectItem={state.selectItem}
           open={state.modalOpen}
           handelModalClose={handelModalClose}
+        />
+      )}
+      {state.stateOpen && (
+        <StateModal
+          open={state.stateOpen}
+          handelStateModalClose={handelStateModalClose}
+          selectItem={state.selectItem}
+          exitFromCoin={exitFromCoin}
+        />
+      )}
+      {state.enterModalOpen && (
+        <EnterModal
+          open={state.enterModalOpen}
+          selectItem={state.selectItem}
+          handelEnterModalClose={handelEnterModalClose}
+          enterIntoCoin={enterIntoCoin}
         />
       )}
     </div>

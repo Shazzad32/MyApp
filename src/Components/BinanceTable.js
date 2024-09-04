@@ -1,17 +1,15 @@
 import { Switch, CircularProgress, Typography, Box } from "@mui/material";
 import { FiEdit } from "react-icons/fi";
 import { motion } from "framer-motion";
-import { useState } from "react";
 
-const BinanceTable = ({ item, handleChange, handelEditModal }) => {
-  const [activeButton, setActiveButton] = useState(null);
-
-  // Handlers for button clicks
-  const handleButtonClick = (button) => {
-    setActiveButton(button);
-  };
-
-  const value = 10;
+const BinanceTable = ({
+  item,
+  handleChange,
+  handelEditModal,
+  handelStateModalOpen,
+  handelEnterModalOpen,
+}) => {
+  console.log("djjkld", item);
 
   return (
     <div
@@ -486,42 +484,43 @@ const BinanceTable = ({ item, handleChange, handelEditModal }) => {
                   "rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;",
               }}
             ></div>
-            <div
-              style={{
-                height: 65,
-                width: 60,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <button
-                style={{
-                  height: "45%",
-                  width: "97%",
-                  background: "gray",
-                  border: "none",
-                  borderRadius: 5,
-                }}
-                onClick={() => handleButtonClick("A")}
-                disabled={activeButton === "B"}
-              >
-                A
-              </button>
-              <button
-                style={{
-                  height: "45%",
-                  width: "97%",
-                  background: "gray",
-                  border: "none",
-                  borderRadius: 5,
-                }}
-                onClick={() => handleButtonClick("B")}
-                disabled={activeButton === "A"}
-              >
-                B
-              </button>
+
+            <div style={{ width: "65%", height: 40 }}>
+              {item.is_exit ? (
+                <div>
+                  <button
+                    style={{
+                      background: "black",
+                      width: "100%",
+                      height: 40,
+                      borderRadius: 5,
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handelEnterModalOpen(item)}
+                  >
+                    ENTER
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <button
+                    style={{
+                      background: "black",
+                      color: "white",
+                      width: "100%",
+                      height: 40,
+                      borderRadius: 5,
+                      border: "none",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                    }}
+                    onClick={() => handelStateModalOpen(item)}
+                  >
+                    EXIT
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
